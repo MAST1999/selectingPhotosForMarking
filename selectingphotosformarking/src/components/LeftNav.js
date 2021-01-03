@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 
 function LeftNav({ handleNewPhoto }) {
 
-    const [reload, setReload] = useState(true)
+    const reload = true
     let listOfImages = []
 
     const importAll = item => {
@@ -15,7 +15,7 @@ function LeftNav({ handleNewPhoto }) {
 
     console.log();
     return (
-        <section>
+        <section id='leftNav'>
             {
                 listOfImages.length
                     ?

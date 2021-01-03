@@ -3,10 +3,10 @@ import React from 'react'
 function MarkingComponent({ photo }) {
     console.log(photo);
     return (
-        <div>
+        <div id='markingDiv'>
             {
                 photo ?
-                    <img src={photo} alt='welp' />
+                    <img src={photo} alt='Loading' />
                     : 'Select or load images first'
             }
 

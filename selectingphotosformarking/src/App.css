@@ -7,3 +7,10 @@
 img {
   width: 150px;
 }
+
+.markable {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  align-content: flex-end;
+}
