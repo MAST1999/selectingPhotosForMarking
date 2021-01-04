@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
     return (
-        <div>
+        <div id='footer'>
             This is the Place holder for Footer!
         </div>
     )
