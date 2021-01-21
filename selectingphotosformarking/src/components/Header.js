@@ -1,37 +1,21 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
-
-const useStyles = makeStyles(() => ({
-  buttonStyle: {
-    margin: "0px 5px",
-  },
-}));
+import { Button, Center, Flex, Heading, HStack, Spacer } from '@chakra-ui/react';
+import React from 'react'
 
 function Header() {
-  const classes = useStyles();
-
   return (
-    <AppBar id="header" position="static">
-      <Toolbar>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.buttonStyle}
-        >
-          <Typography variant="button">Instructions</Typography>
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.buttonStyle}
-        >
-          <Typography variant="button">Load Photos</Typography>
-        </Button>
-      </Toolbar>
-    </AppBar>
+    <Flex>
+      <Center>
+        <Heading ml="4px" size="md">
+          Photo Marking App
+        </Heading>
+      </Center>
+      <Spacer />
+      <HStack spacing="24px" p="4px" mt="4px">
+        <Button colorScheme="blue">Load Photos</Button>
+        <Button colorScheme="green">Instructions</Button>
+      </HStack>
+    </Flex>
   );
 }
 
-export default Header;
+export default Header

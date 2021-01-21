@@ -1,6 +1,7 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 
-function LeftNav({ handleNewPhoto }) {
+function PhotoNav({ setPhoto }) {
   const reload = true;
   let listOfImages = [];
 
@@ -15,20 +16,19 @@ function LeftNav({ handleNewPhoto }) {
   }
 
   return (
-    <section id="leftNav">
+    <Flex direction="column" overflow="auto" maxHeight="100%" id="leftNav">
       {listOfImages.length
         ? listOfImages.map((image, index) => (
             <img
               src={image.default}
-              key={index}
+              key={`image-${index}`}
               alt="loading"
-              style={{ width: "200px", height: "200px" }}
-              onClick={() => handleNewPhoto(image.default)}
+              onClick={() => setPhoto(image.default)}
             />
           ))
         : "No Images, Add more!"}
-    </section>
+    </Flex>
   );
 }
 
-export default LeftNav;
+export default PhotoNav;
