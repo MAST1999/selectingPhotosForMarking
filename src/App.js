@@ -1,93 +1,79 @@
-import React, { useState } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import React, { useState } from 'react';
 import {
   ChakraProvider,
-  Flex,
+  CSSReset,
+  Divider,
   Grid,
   GridItem,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
-import PhotoNav from "./components/PhotoNav";
-import Labels from "./components/Labels";
-import MarkingComponent from "./components/MarkingComponent";
+  theme,
+} from '@chakra-ui/react';
+import Navigation from './components/navigation/Navigation';
+import './App.css';
+import ImageCanvas from './components/mainPanel/ImageCanvas';
+import LeftControls from './components/mainPanel/LeftControls';
+import BottomTabs from './components/mainPanel/BottomTabs';
 
 function App() {
-  const [selectedPhoto, setSelectedPhoto] = useState("");
-  const [label, setLabel] = useState({ name: "", color: "" });
+  const [photo, setPhoto] = useState('');
+  const [id, setId] = useState(null);
+  const [currentRegion, setCurrentRegion] = useState({});
+  const [allRegions, setAllRegions] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+  const [coordsInfo, setCoordsInfo] = useState([]);
 
-  const newPhotoSelection = (photoAddress) => {
-    setSelectedPhoto(photoAddress);
-  };
-
-  const newLabelSelection = (newLabelSelector) => {
-    setLabel(newLabelSelector);
-  };
   return (
-    <div className="App">
-      <ChakraProvider>
-        <Grid
-          templateColumns="5fr 14fr 1fr"
-          templateRows="minmax(54px, 7%) 87% minmax(42px, 6%)"
-          h="100vh"
-        >
-          {/* Header */}
-          <GridItem
-            bg="green.200"
-            borderBottom="1px solid"
-            borderColor="green.500"
-            rowSpan={1}
-            colSpan={3}
-          >
-            <Header />
-          </GridItem>
-          {/* The Left Navigation Part */}
-          <GridItem colspan={1} rowStart={2} rowEnd={3}>
-            <Flex direction="column" h="100%" overflow="auto">
-              <Tabs mt="4px" ml="4px" isFitted variant="enclosed">
-                <TabList>
-                  <Tab>Select Photo</Tab>
-                  <Tab>Labels</Tab>
-                </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    <PhotoNav flex="1" setPhoto={newPhotoSelection} />
-                  </TabPanel>
-                  <TabPanel>
-                    <Labels setTheLabel={newLabelSelection} />
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-            </Flex>
-          </GridItem>
-          {/* Marking Component */}
-          <GridItem
-            colStart={2}
-            colEnd={4}
-            rowStart={2}
-            rowEnd={3}
-            h="100%"
-            overflow="auto"
-          >
-            <MarkingComponent photo={selectedPhoto} label={label} />
-          </GridItem>
-          {/* Footer */}
-          <GridItem
-            colStart={1}
-            colEnd={4}
-            rowStart={3}
-            rowEnd={4}
-            border="1px solid black"
-          >
-            <Footer />
-          </GridItem>
-        </Grid>
-      </ChakraProvider>
-    </div>
+    <ChakraProvider theme={theme} h="100%">
+      <CSSReset />
+      <Grid
+        overflowY="hidden"
+        h="100vh"
+        templateRows="45px 1fr 300px"
+        templateColumns="1fr"
+        gap={1}
+        paddingTop={2}
+        paddingX={1}
+      >
+        {/* Navigation */}
+        <GridItem h={47}>
+          <Navigation
+            useRefresh={[refresh, setRefresh]}
+            uploadInfo={{ coordsInfo, photo }}
+            id={id}
+            regionId={currentRegion.id}
+          />
+          <Divider orientation="horizontal" mt={2} />
+        </GridItem>
+        {/* Main Panel */}
+        <GridItem>
+          <Grid height="100%" templateRows="1fr" templateColumns="300px 1fr">
+            <GridItem>
+              <LeftControls
+                setPhoto={setPhoto}
+                refresh={refresh}
+                setId={setId}
+              />
+            </GridItem>
+            <GridItem>
+              <ImageCanvas
+                photo={photo}
+                currentRegion={currentRegion}
+                setCoordsInfo={setCoordsInfo}
+                allRegions={allRegions}
+                id={id}
+              />
+            </GridItem>
+          </Grid>
+        </GridItem>
+        {/* Bottom Panel */}
+        <GridItem>
+          <BottomTabs
+            setCurrentRegion={setCurrentRegion}
+            currentRegion={currentRegion}
+            setAllRegions={setAllRegions}
+          />
+        </GridItem>
+      </Grid>
+    </ChakraProvider>
   );
 }
 

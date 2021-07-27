@@ -1,5 +1,7 @@
 {
-    "cSpell.words": [
-        "Swipeable"
-    ]
+  "cmake.configureOnOpen": false,
+  "cSpell.words": [
+    "Coord",
+    "apos"
+  ]
 }
